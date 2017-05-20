@@ -13,6 +13,7 @@ namespace DNS_Swapper
 {
     public partial class MainMenu : Form
     {
+        public static string version = "b/1.1";
         public MainMenu()
         {
             InitializeComponent();
@@ -253,6 +254,74 @@ namespace DNS_Swapper
             {
                 SwapDNS();
             }
+        }
+
+        private void updateIP(object sender, EventArgs e)
+        {
+            bool IPv4IPfound = false;
+            bool IPv6IPfound = false;
+            bool IPv4GWfound = false;
+            bool IPv6GWfound = false;
+            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (nic.Description.Equals(NIC_select.SelectedItem))
+                {
+                    foreach (UnicastIPAddressInformation ip in nic.GetIPProperties().UnicastAddresses)
+                    {
+                        if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                        {
+                            IPv4IPfound = true;
+                            IPv4_Text.Text = ip.Address.ToString();
+                            foreach (GatewayIPAddressInformation gwipv4 in nic.GetIPProperties().GatewayAddresses)
+                            {
+                                if (gwipv4.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                                {
+                                    IPv4GWfound = true;
+                                    IPv4_GW_Text.Text = gwipv4.Address.ToString();
+                                }
+                            }
+                        }
+                        else if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
+                        {
+                            IPv6IPfound = true;
+                            IPv6_Text.Text = ip.Address.ToString();
+                            foreach (GatewayIPAddressInformation gwipv6 in nic.GetIPProperties().GatewayAddresses)
+                            {
+                                if (gwipv6.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
+                                {
+                                    IPv6GWfound = true;
+                                    IPv6_GW_Text.Text = gwipv6.Address.ToString();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (!IPv4IPfound)
+            {
+                IPv4_Text.Text = "No IPv4 IP found";
+            }
+            if (!IPv6IPfound)
+            {
+                IPv6_Text.Text = "No IPv6 IP found";
+            }
+            if (!IPv4GWfound)
+            {
+                IPv4_GW_Text.Text = "No IPv4 Gateway found";
+            }
+            if (!IPv6GWfound)
+            {
+                IPv6_GW_Text.Text = "No IPv6 Gateway found";
+            }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // show version
+            string versiontext = "DNS-Swapper version " + version + Environment.NewLine
+                + "Author: Stefan Bautz" + Environment.NewLine
+                + "Website: https://github.com/roots84/DNS-Swapper";
+            MessageBox.Show(versiontext, "About", MessageBoxButtons.OK);
         }
     }
 }

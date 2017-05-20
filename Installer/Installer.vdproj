@@ -27,32 +27,38 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_D335F1B7F26E84BEDB823E8E311BBE0F"
-        "OwnerKey" = "8:_76D2936A068A455BB88AF4FD91518D8D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D335F1B7F26E84BEDB823E8E311BBE0F"
-        "OwnerKey" = "8:_5EDFC8895C4E4FED8558BB59FA943EBC"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D335F1B7F26E84BEDB823E8E311BBE0F"
-        "OwnerKey" = "8:_DACE7B178DE290A9CD1799968B01B011"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_DACE7B178DE290A9CD1799968B01B011"
         "OwnerKey" = "8:_5EDFC8895C4E4FED8558BB59FA943EBC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
+        "MsmKey" = "8:_F65CC394DCBADE96160ECF4CC5F03C51"
+        "OwnerKey" = "8:_DACE7B178DE290A9CD1799968B01B011"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F65CC394DCBADE96160ECF4CC5F03C51"
+        "OwnerKey" = "8:_76D2936A068A455BB88AF4FD91518D8D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F65CC394DCBADE96160ECF4CC5F03C51"
+        "OwnerKey" = "8:_5EDFC8895C4E4FED8558BB59FA943EBC"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_76D2936A068A455BB88AF4FD91518D8D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_5EDFC8895C4E4FED8558BB59FA943EBC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -64,13 +70,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D335F1B7F26E84BEDB823E8E311BBE0F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_5EDFC8895C4E4FED8558BB59FA943EBC"
+        "OwnerKey" = "8:_F65CC394DCBADE96160ECF4CC5F03C51"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -168,32 +168,6 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D335F1B7F26E84BEDB823E8E311BBE0F"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:NBug, Version=1.2.0.0, Culture=neutral, PublicKeyToken=a4292a325f69b123, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                }
-            "SourcePath" = "8:NBug.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_27782A144B9A498CA6EF9CAD151C8D3D"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_DACE7B178DE290A9CD1799968B01B011"
             {
             "AssemblyRegister" = "3:1"
@@ -208,6 +182,37 @@
                     }
                 }
             "SourcePath" = "8:DNS-Swapper.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_27782A144B9A498CA6EF9CAD151C8D3D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F65CC394DCBADE96160ECF4CC5F03C51"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:NBug, Version=1.2.0.0, Culture=neutral, PublicKeyToken=a4292a325f69b123, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_F65CC394DCBADE96160ECF4CC5F03C51"
+                    {
+                    "Name" = "8:NBug.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:NBug.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_27782A144B9A498CA6EF9CAD151C8D3D"
@@ -304,7 +309,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:DNS-Swapper"
         "ProductCode" = "8:{01A428E0-A71F-4FFE-B6D6-514DB26323C2}"
-        "PackageCode" = "8:{7BBF6687-527B-4C56-BFD3-85C84F72E613}"
+        "PackageCode" = "8:{EDDE396A-1664-46C6-BE87-FAC3D59E978F}"
         "UpgradeCode" = "8:{0EE130BB-4288-4288-B68F-FD44404B1F27}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
