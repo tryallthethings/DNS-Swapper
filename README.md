@@ -1,4 +1,6 @@
 # DNS-Swapper
+## Download
+Latest version can be downloaded from here: https://github.com/roots84/DNS-Swapper/releases/tag/b%2F1.1
 ## Purpose
 This little tool was written out of my need to quickly switch my network configuration between two different DNS servers.
 Its main purpose is to be used together with Pi-Hole (https://pi-hole.net). If you have set your DNS to your Pi-Hole IP you would either need to change it manually in your windows configuration or disable Pi-Hole temporarly through the Web-GUI (which would disable it for other users as well).
