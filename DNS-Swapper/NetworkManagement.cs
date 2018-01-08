@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Management;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Runtime.InteropServices;
 
 namespace DNS_Swapper
 {
@@ -190,6 +191,15 @@ namespace DNS_Swapper
                     }
                 }
             }
+        }
+
+
+        [DllImport("dnsapi.dll", EntryPoint = "DnsFlushResolverCache")]
+        private static extern UInt32 DnsFlushResolverCache();
+
+        public static void FlushDNSCache() //This can be named whatever name you want and is the function you will call
+        {
+            UInt32 result = DnsFlushResolverCache();
         }
     }
 

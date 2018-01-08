@@ -1,15 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNS-Swapper", "DNS-Swapper\DNS-Swapper.csproj", "{F2D68472-7913-4EF2-901E-4828BC05D7AD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "swap", "swap\swap.csproj", "{5005E928-8655-48BC-9A8B-C9471C1651DF}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Installer", "Installer\Installer.vdproj", "{C5A1A57E-C104-46E9-AC97-D88F88F692AA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NBug", "..\GitHub\NBug\NBug\NBug.csproj", "{62CED1D5-F603-40DE-8BF5-3E49D3A392F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,16 +39,11 @@ Global
 		{C5A1A57E-C104-46E9-AC97-D88F88F692AA}.Release|Any CPU.ActiveCfg = Release
 		{C5A1A57E-C104-46E9-AC97-D88F88F692AA}.Release|x64.ActiveCfg = Release
 		{C5A1A57E-C104-46E9-AC97-D88F88F692AA}.Release|x64.Build.0 = Release
-		{62CED1D5-F603-40DE-8BF5-3E49D3A392F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{62CED1D5-F603-40DE-8BF5-3E49D3A392F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{62CED1D5-F603-40DE-8BF5-3E49D3A392F4}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{62CED1D5-F603-40DE-8BF5-3E49D3A392F4}.Debug|x64.Build.0 = Debug|Any CPU
-		{62CED1D5-F603-40DE-8BF5-3E49D3A392F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{62CED1D5-F603-40DE-8BF5-3E49D3A392F4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{62CED1D5-F603-40DE-8BF5-3E49D3A392F4}.Release|x64.ActiveCfg = Release|Any CPU
-		{62CED1D5-F603-40DE-8BF5-3E49D3A392F4}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C3499FC6-5C15-4C9A-9B69-023690904708}
 	EndGlobalSection
 EndGlobal

@@ -1,5 +1,4 @@
-﻿using NBug.Events;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -13,30 +12,15 @@ namespace DNS_Swapper
 {
     public partial class MainMenu : Form
     {
-        public static string version = "b/1.1";
+        public static string version = "b/1.2";
+
         public MainMenu()
         {
             InitializeComponent();
+            //WindowState = FormWindowState.Minimized;
+            //ShowInTaskbar = false;
+            //this.Hide();
 
-            //add handler on application load
-            NBug.Settings.CustomSubmissionEvent += Settings_CustomSubmissionEvent;
-
-            // Custom Submission Event handler
-            void Settings_CustomSubmissionEvent(object sender, CustomSubmissionEventArgs e)
-            {
-                //your sumbmission code here...
-                MessageBox.Show(e.FileName.ToString());
-                // 
-                // var url = "mailto:dns-swapper@fire.fundersclub.com?subject=DNS-Swapper&body=crash";
-                // Process.Start(url);
-                //tell NBug if submission was successfull or not
-                e.Result = true;
-            }
-
-
-            WindowState = FormWindowState.Minimized;
-            ShowInTaskbar = false;
-            
             // Load network interfaces
             foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
             {
@@ -154,7 +138,7 @@ namespace DNS_Swapper
                 else if (DNS_servers.Equals(IPAddress.Parse(Regex.Replace(DNS_2.Text, @"\s+", ""))))
                 {
                     callSwapDNS(NIC_select.SelectedItem.ToString(), Regex.Replace(DNS_1.Text, @"\s+", ""));
-                    
+
                     if (NetworkManagement.getDNS().Equals(IPAddress.Parse(Regex.Replace(DNS_1.Text, @"\s+", ""))))
                     {
                         taskBarIcon.Icon = Resource1.icon_red;
@@ -166,12 +150,13 @@ namespace DNS_Swapper
                         taskBarIcon.Icon = Resource1.error;
                     }
                 }
+                NetworkManagement.FlushDNSCache();
             }
             else
             {
                 MessageBox.Show("Please select a network interface and enter 2 valid IPs", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-           
+
         }
 
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -246,6 +231,7 @@ namespace DNS_Swapper
             Show();
             WindowState = FormWindowState.Normal;
             ShowInTaskbar = true;
+            //RegisterHotKey(this.Handle, MYACTION_HOTKEY_ID, 0, (int)Keys.F11);
         }
 
         private void taskBarIcon_Click(object sender, MouseEventArgs e)
