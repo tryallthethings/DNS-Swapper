@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
-            this.DNS_1 = new System.Windows.Forms.MaskedTextBox();
             this.NIC_select = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -40,12 +39,10 @@
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.IPerrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.label3 = new System.Windows.Forms.Label();
-            this.DNS_2 = new System.Windows.Forms.MaskedTextBox();
             this.taskBarIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.notify_context = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,23 +58,15 @@
             this.GW_Label = new System.Windows.Forms.Label();
             this.IPv4_GW_Text = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.DNS_2 = new IPAddressControlLib.IPAddressControl();
+            this.DNS_1 = new IPAddressControlLib.IPAddressControl();
+            this.Warning = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.IPerrorProvider)).BeginInit();
             this.notify_context.SuspendLayout();
             this.NIC_info.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // DNS_1
-            // 
-            this.DNS_1.Location = new System.Drawing.Point(9, 83);
-            this.DNS_1.Mask = "###\\.###\\.###\\.###";
-            this.DNS_1.Name = "DNS_1";
-            this.DNS_1.PromptChar = ' ';
-            this.DNS_1.Size = new System.Drawing.Size(96, 20);
-            this.DNS_1.TabIndex = 1;
-            this.DNS_1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.JumpOnDot);
-            this.DNS_1.Validating += new System.ComponentModel.CancelEventHandler(this.ValidateIP);
             // 
             // NIC_select
             // 
@@ -153,17 +142,10 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.helpToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(24, 20);
             this.toolStripMenuItem1.Text = "?";
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.helpToolStripMenuItem.Text = "Help";
             // 
             // aboutToolStripMenuItem
             // 
@@ -174,7 +156,7 @@
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 147);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 173);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(645, 22);
             this.statusStrip1.TabIndex = 6;
@@ -192,18 +174,6 @@
             this.label3.Size = new System.Drawing.Size(70, 13);
             this.label3.TabIndex = 8;
             this.label3.Text = "Regular DNS";
-            // 
-            // DNS_2
-            // 
-            this.DNS_2.Location = new System.Drawing.Point(226, 83);
-            this.DNS_2.Mask = "###\\.###\\.###\\.###";
-            this.DNS_2.Name = "DNS_2";
-            this.DNS_2.PromptChar = ' ';
-            this.DNS_2.ResetOnSpace = false;
-            this.DNS_2.Size = new System.Drawing.Size(96, 20);
-            this.DNS_2.TabIndex = 2;
-            this.DNS_2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.JumpOnDot);
-            this.DNS_2.Validating += new System.ComponentModel.CancelEventHandler(this.ValidateIP);
             // 
             // taskBarIcon
             // 
@@ -339,12 +309,12 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.DNS_2);
             this.groupBox1.Controls.Add(this.DNS_1);
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.NIC_select);
             this.groupBox1.Controls.Add(this.toggle_DNS);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.DNS_2);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Location = new System.Drawing.Point(12, 27);
             this.groupBox1.Name = "groupBox1";
@@ -353,11 +323,54 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings";
             // 
+            // DNS_2
+            // 
+            this.DNS_2.AllowInternalTab = false;
+            this.DNS_2.AutoHeight = true;
+            this.DNS_2.BackColor = System.Drawing.SystemColors.Window;
+            this.DNS_2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.DNS_2.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.DNS_2.Location = new System.Drawing.Point(226, 83);
+            this.DNS_2.MinimumSize = new System.Drawing.Size(87, 20);
+            this.DNS_2.Name = "DNS_2";
+            this.DNS_2.ReadOnly = false;
+            this.DNS_2.Size = new System.Drawing.Size(87, 20);
+            this.DNS_2.TabIndex = 11;
+            this.DNS_2.Text = "...";
+            this.DNS_2.Leave += new System.EventHandler(this.ValidateIPField);
+            // 
+            // DNS_1
+            // 
+            this.DNS_1.AllowInternalTab = false;
+            this.DNS_1.AutoHeight = true;
+            this.DNS_1.BackColor = System.Drawing.SystemColors.Window;
+            this.DNS_1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.DNS_1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.DNS_1.Location = new System.Drawing.Point(9, 83);
+            this.DNS_1.MinimumSize = new System.Drawing.Size(87, 20);
+            this.DNS_1.Name = "DNS_1";
+            this.DNS_1.ReadOnly = false;
+            this.DNS_1.Size = new System.Drawing.Size(87, 20);
+            this.DNS_1.TabIndex = 10;
+            this.DNS_1.Text = "...";
+            this.DNS_1.Leave += new System.EventHandler(this.ValidateIPField);
+            // 
+            // Warning
+            // 
+            this.Warning.AutoSize = true;
+            this.Warning.Location = new System.Drawing.Point(9, 152);
+            this.Warning.Name = "Warning";
+            this.Warning.Size = new System.Drawing.Size(540, 13);
+            this.Warning.TabIndex = 15;
+            this.Warning.Text = "Note: Using this tool will (currently) remove any additional configured DNS serve" +
+    "rs on the given network interface!";
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(645, 169);
+            this.ClientSize = new System.Drawing.Size(645, 195);
+            this.Controls.Add(this.Warning);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.NIC_info);
             this.Controls.Add(this.statusStrip1);
@@ -384,8 +397,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.MaskedTextBox DNS_1;
         private System.Windows.Forms.ComboBox NIC_select;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -395,11 +406,9 @@
         private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ErrorProvider IPerrorProvider;
-        private System.Windows.Forms.MaskedTextBox DNS_2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NotifyIcon taskBarIcon;
         private System.Windows.Forms.ContextMenuStrip notify_context;
@@ -416,6 +425,9 @@
         private System.Windows.Forms.Label IPv6_Text;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label IPv6_GW_Text;
+        private IPAddressControlLib.IPAddressControl DNS_2;
+        private IPAddressControlLib.IPAddressControl DNS_1;
+        private System.Windows.Forms.Label Warning;
     }
 }
 

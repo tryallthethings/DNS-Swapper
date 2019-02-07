@@ -12,7 +12,7 @@ namespace DNS_Swapper
 {
     public partial class MainMenu : Form
     {
-        public static string version = "b/1.2";
+        public static string version = "b/1.3";
 
         public MainMenu()
         {
@@ -35,20 +35,54 @@ namespace DNS_Swapper
 
             // Load previously saved user settings
             NIC_select.SelectedItem = Properties.Settings.Default.NIC;
-            DNS_1.Text = Properties.Settings.Default.DNS_1;
-            DNS_2.Text = Properties.Settings.Default.DNS_2;
+            // Remove blank in IP-Address
+            string DNS1_var = Properties.Settings.Default.DNS_1.Replace(" ", string.Empty);
+            string DNS2_var = Properties.Settings.Default.DNS_2.Replace(" ", string.Empty);
+            // Variables used for validated IP-Addresses
+            IPAddress DNS1_IP = new IPAddress(new byte[] { 127, 0, 0, 1 });
+            IPAddress DNS2_IP = new IPAddress(new byte[] { 127, 0, 0, 1 });
 
-            if (NIC_select.SelectedItem != null && !string.IsNullOrEmpty(DNS_1.Text) && !string.IsNullOrEmpty(DNS_2.Text))
+            if (string.IsNullOrEmpty(DNS1_var) || string.IsNullOrEmpty(DNS2_var))
             {
-                if (NetworkManagement.getDNS().Equals(IPAddress.Parse(DNS_1.Text)))
+                // No DNS servers configured
+                MessageBox.Show("Tool not configured yet", "DNS-Swapper configuration missing", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Show();
+                WindowState = FormWindowState.Normal;
+                ShowInTaskbar = true;
+            }
+            else
+            {
+                // Validate configuration
+                if ((IPAddress.TryParse(DNS1_var, out DNS1_IP)) && (IPAddress.TryParse(DNS2_var, out DNS2_IP)))
                 {
-                    taskBarIcon.Icon = Resource1.icon_red;
-                    changeToggleBtnPosition(false);
+                    // DNS server IPs valid
+                    // Set Loaded variables into settings text boxes
+                    DNS_1.Text = DNS1_var;
+                    DNS_2.Text = DNS2_var;
+
+                    if (NIC_select.SelectedItem != null && !string.IsNullOrEmpty(DNS_1.Text) && !string.IsNullOrEmpty(DNS_2.Text))
+                    {
+                        if (NetworkManagement.getDNS().Equals(DNS1_IP))
+                        {
+                            taskBarIcon.Icon = Resource1.icon_red;
+                            changeToggleBtnPosition(false);
+                        }
+                        else if (NetworkManagement.getDNS().Equals(DNS2_IP))
+                        {
+                            taskBarIcon.Icon = Resource1.icon_blue;
+                            changeToggleBtnPosition(true);
+                        }
+                    }
                 }
-                else if (NetworkManagement.getDNS().Equals(IPAddress.Parse(DNS_2.Text)))
+                else
                 {
-                    taskBarIcon.Icon = Resource1.icon_blue;
-                    changeToggleBtnPosition(true);
+                    // DNS server IP(s) invalid - give error
+                    MessageBox.Show("Invalid configuration detected. Resetting settings to default", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    resetToolStripMenuItem_Click(null, null);
+                    saveSettings();
+                    Show();
+                    WindowState = FormWindowState.Normal;
+                    ShowInTaskbar = true;
                 }
             }
         }
@@ -213,8 +247,16 @@ namespace DNS_Swapper
 
         private void saveSettings()
         {
-            Properties.Settings.Default.DNS_1 = DNS_1.Text;
-            Properties.Settings.Default.DNS_2 = DNS_2.Text;
+            if (DNS_1.Text == "..." && DNS_1.Text == "...")
+            {
+                Properties.Settings.Default.DNS_1 = "";
+                Properties.Settings.Default.DNS_2 = "";
+            }
+            else
+            {
+                Properties.Settings.Default.DNS_1 = DNS_1.Text;
+                Properties.Settings.Default.DNS_2 = DNS_2.Text;
+            }
             if (NIC_select.SelectedItem != null)
             {
                 Properties.Settings.Default.NIC = NIC_select.SelectedItem.ToString();
@@ -306,8 +348,35 @@ namespace DNS_Swapper
             // show version
             string versiontext = "DNS-Swapper version " + version + Environment.NewLine
                 + "Author: Stefan Bautz" + Environment.NewLine
-                + "Website: https://github.com/roots84/DNS-Swapper";
-            MessageBox.Show(versiontext, "About", MessageBoxButtons.OK);
+                + "Website: https://github.com/roots84/DNS-Swapper" + Environment.NewLine
+                + Environment.NewLine
+                + "External libraries:" + Environment.NewLine
+                + "ipaddresscontrollib: https://github.com/m66n/ipaddresscontrollib" + Environment.NewLine
+                + "";
+                MessageBox.Show(versiontext, "About", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, 0, "https://github.com/roots84/DNS-Swapper");
+        }
+
+        private void ValidateIPField(object sender, EventArgs e)
+        {
+            Regex validIpV4AddressRegex = new Regex(@"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]).){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$", RegexOptions.IgnoreCase);
+            IPAddressControlLib.IPAddressControl IPvalidate = (IPAddressControlLib.IPAddressControl)sender;
+            IPAddress ip = new IPAddress(new byte[] { 127, 0, 0, 1 });
+            string message = "";
+            int VisibleTime = 1000;  //in milliseconds
+            ToolTip tt = new ToolTip();
+            if (IPvalidate.AnyBlank)
+            {
+                message = "Blank address fields found";
+            }
+            else if (!validIpV4AddressRegex.IsMatch(IPvalidate.Text.Trim()))
+            {
+                message = "Invalid IP address";
+            }
+
+            if (!string.IsNullOrEmpty(message))
+            {
+                tt.Show(message, IPvalidate, 0, -20, VisibleTime);
+            }
         }
     }
 }
