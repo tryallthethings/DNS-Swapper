@@ -1,4 +1,4 @@
-# DNS-Swapper [![Build Status](https://travis-ci.org/roots84/DNS-Swapper.svg?branch=master)](https://travis-ci.org/roots84/DNS-Swapper)
+# DNS-Swapper [![Build Status](https://travis-ci.org/roots84/DNS-Swapper.svg?branch=master)](https://travis-ci.org/roots84/DNS-Swapper) ![Downloads](https://img.shields.io/github/downloads/roots84/DNS-Swapper/total.svg?style=flat)
 ## Download
 Latest version can be downloaded from here: https://github.com/roots84/DNS-Swapper/releases
 ## Purpose
