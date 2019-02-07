@@ -79,8 +79,10 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IPAddressControlLib">
-      <HintPath>..\..\ipaddresscontrollib\VS2017\IPAddressControlLib\bin\Debug\IPAddressControlLib.dll</HintPath>
+    <Reference Include="IPAddressControlLib, Version=1.3.6977.2092, Culture=neutral, PublicKeyToken=e2e6703563bb363c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\IPAddressControlLib.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
