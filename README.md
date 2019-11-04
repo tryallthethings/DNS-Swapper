@@ -1,6 +1,6 @@
-# DNS-Swapper [![Build Status](https://travis-ci.org/roots84/DNS-Swapper.svg?branch=master)](https://travis-ci.org/roots84/DNS-Swapper) ![Downloads](https://img.shields.io/github/downloads/roots84/DNS-Swapper/total.svg?style=flat)
+# DNS-Swapper [![Build Status](https://travis-ci.org/tryallthethings/DNS-Swapper.svg?branch=master)](https://travis-ci.org/tryallthethings/DNS-Swapper) ![Downloads](https://img.shields.io/github/downloads/tryallthethings/DNS-Swapper/total.svg?style=flat)
 ## Download
-Latest version can be downloaded from here: https://github.com/roots84/DNS-Swapper/releases
+Latest version can be downloaded from here: https://github.com/tryallthethings/DNS-Swapper/releases
 ## Purpose
 This little tool was written out of my need to quickly switch my network configuration between two different DNS servers.
 Its main purpose is to be used together with Pi-Hole (https://pi-hole.net). If you have set your DNS to your Pi-Hole IP you would either need to change it manually in your windows configuration or disable Pi-Hole temporarly through the Web-GUI (which would disable it for other users as well).
