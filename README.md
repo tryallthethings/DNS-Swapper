@@ -1,4 +1,4 @@
-# DNS-Swapper [![Build Status](https://travis-ci.org/tryallthethings/DNS-Swapper.svg?branch=master)](https://travis-ci.org/tryallthethings/DNS-Swapper) ![Downloads](https://img.shields.io/github/downloads/tryallthethings/DNS-Swapper/total.svg?style=flat) [![Latest Release](https://img.shields.io/github/v/release/tryallthethings/DNS-Swapper.svg?logo=github)](tryallthethings/DNS-Swapper/releases)
+# DNS-Swapper [![Build Status](https://travis-ci.org/tryallthethings/DNS-Swapper.svg?branch=master)](https://travis-ci.org/tryallthethings/DNS-Swapper) ![Downloads](https://img.shields.io/github/downloads/tryallthethings/DNS-Swapper/total.svg?style=flat) [![Latest Release](https://img.shields.io/github/v/release/tryallthethings/DNS-Swapper.svg?logo=github)](https://github.com/tryallthethings/DNS-Swapper/releases)
 ## Download
 Latest version can be downloaded from here: https://github.com/tryallthethings/DNS-Swapper/releases
 ## Purpose
