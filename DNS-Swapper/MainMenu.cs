@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
@@ -12,14 +13,16 @@ namespace DNS_Swapper
 {
     public partial class MainMenu : Form
     {
-        public static string version = "b/1.3";
+        private string Version = "b/1.4";
+
+        public string version
+        {
+            get { return Version; }
+        }
 
         public MainMenu()
         {
             InitializeComponent();
-            //WindowState = FormWindowState.Minimized;
-            //ShowInTaskbar = false;
-            //this.Hide();
 
             // Load network interfaces
             foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
@@ -89,23 +92,28 @@ namespace DNS_Swapper
 
         private void changeToggleBtnPosition(bool state)
         {
-            toggle_DNS.CheckedChanged -= new EventHandler(toggle_DNS_CheckedChanged);
+            toggle_DNS.CheckedChanged -= toggle_DNS_CheckedChanged;
             toggle_DNS.Checked = state;
-            toggle_DNS.CheckedChanged += new EventHandler(toggle_DNS_CheckedChanged);
+            toggle_DNS.CheckedChanged += toggle_DNS_CheckedChanged;
         }
 
-        private void JumpOnDot(object sender, KeyEventArgs e)
+        private static void JumpOnDot(object sender, KeyEventArgs e)
         {
             var mb = (MaskedTextBox)sender;
             if ((new[] { Keys.Oemcomma, Keys.Decimal, Keys.OemPeriod }.Contains(e.KeyCode)))
             {
                 if (mb.SelectionStart <= 3)
+                {
                     mb.SelectionStart = 4;
+                }
                 else if (mb.SelectionStart <= 7)
+                {
                     mb.SelectionStart = 8;
+                }
                 else if (mb.SelectionStart <= 10)
+                {
                     mb.SelectionStart = 12;
-            }
+                }            }
         }
 
         private void ValidateIP(object sender, CancelEventArgs e)
@@ -136,7 +144,9 @@ namespace DNS_Swapper
         private void menuStrip1_Resize(object sender, EventArgs e)
         {
             if (FormWindowState.Minimized == WindowState)
+            {
                 Hide();
+            }
         }
 
         private void taskBarIcon_DoubleClick(object sender, EventArgs e)
@@ -207,23 +217,30 @@ namespace DNS_Swapper
         private void callSwapDNS(string NIC, string DNS)
         {
             const int ERROR_CANCELLED = 1223; //The operation was canceled by the user.
-            ProcessStartInfo info = new ProcessStartInfo(@"swap.exe");
-            string wrapped = string.Format(@"""{0}"" ""{1}""", NIC, DNS);
-            info.Arguments = wrapped;
-            info.UseShellExecute = true;
-            info.Verb = "runas";
-            info.WindowStyle = ProcessWindowStyle.Hidden;
-            try
+            if (File.Exists(@"swap.exe"))
             {
-                Process.Start(info);
-                Thread.Sleep(500);
+                ProcessStartInfo info = new ProcessStartInfo(@"swap.exe");
+                string wrapped = string.Format(@"""{0}"" ""{1}""", NIC, DNS);
+                info.Arguments = wrapped;
+                info.UseShellExecute = true;
+                info.Verb = "runas";
+                info.WindowStyle = ProcessWindowStyle.Hidden;
+                try
+                {
+                    Process.Start(info);
+                    Thread.Sleep(500);
+                }
+                catch (Win32Exception ex)
+                {
+                    if (ex.NativeErrorCode == ERROR_CANCELLED)
+                        MessageBox.Show("Why you no select Yes?");
+                    else
+                        throw;
+                }
             }
-            catch (Win32Exception ex)
+            else
             {
-                if (ex.NativeErrorCode == ERROR_CANCELLED)
-                    MessageBox.Show("Why you no select Yes?");
-                else
-                    throw;
+                MessageBox.Show("swap.exe missing", "Fatal error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -247,7 +264,7 @@ namespace DNS_Swapper
 
         private void saveSettings()
         {
-            if (DNS_1.Text == "..." && DNS_1.Text == "...")
+            if (DNS_1.Text == "..." && DNS_2.Text == "...")
             {
                 Properties.Settings.Default.DNS_1 = "";
                 Properties.Settings.Default.DNS_2 = "";
@@ -348,12 +365,12 @@ namespace DNS_Swapper
             // show version
             string versiontext = "DNS-Swapper version " + version + Environment.NewLine
                 + "Author: Stefan Bautz" + Environment.NewLine
-                + "Website: https://github.com/roots84/DNS-Swapper" + Environment.NewLine
+                + "Website: https://github.com/tryallthethings/DNS-Swapper" + Environment.NewLine
                 + Environment.NewLine
                 + "External libraries:" + Environment.NewLine
                 + "ipaddresscontrollib: https://github.com/m66n/ipaddresscontrollib" + Environment.NewLine
                 + "";
-                MessageBox.Show(versiontext, "About", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, 0, "https://github.com/roots84/DNS-Swapper");
+                MessageBox.Show(versiontext, "About", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, 0, "https://github.com/tryallthethings/DNS-Swapper");
         }
 
         private void ValidateIPField(object sender, EventArgs e)

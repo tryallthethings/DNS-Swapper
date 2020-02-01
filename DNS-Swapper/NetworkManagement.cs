@@ -35,12 +35,14 @@ namespace DNS_Swapper
         /// <param name="ip_address">The IP Address</param>
         /// <param name="subnet_mask">The Submask IP Address</param>
         /// <remarks>Requires a reference to the System.Management namespace</remarks>
-        public void setIP(string ip_address, string subnet_mask)
+        public static void setIP(string ip_address, string subnet_mask)
         {
             ConnectionOptions options = PrepareOptions();
             ManagementScope scope = PrepareScope(Environment.MachineName, options, @"\root\CIMV2");
-            ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
-            mc.Scope = scope;
+            ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration")
+            {
+                Scope = scope
+            };
             ManagementObjectCollection moc = mc.GetInstances();
             foreach (ManagementObject mo in moc)
             {
@@ -51,8 +53,8 @@ namespace DNS_Swapper
                         ManagementBaseObject setIP;
                         ManagementBaseObject newIP = mo.GetMethodParameters("EnableStatic");
 
-                        newIP["IPAddress"] = new string[] { ip_address };
-                        newIP["SubnetMask"] = new string[] { subnet_mask };
+                        newIP["IPAddress"] = ip_address;
+                        newIP["SubnetMask"] = subnet_mask;
 
                         setIP = mo.InvokeMethod("EnableStatic", newIP, null);
                     }
@@ -85,8 +87,8 @@ namespace DNS_Swapper
                         ManagementBaseObject newGateway =
                             objMO.GetMethodParameters("SetGateways");
 
-                        newGateway["DefaultIPGateway"] = new string[] { gateway };
-                        newGateway["GatewayCostMetric"] = new int[] { 1 };
+                        newGateway["DefaultIPGateway"] = gateway;
+                        newGateway["GatewayCostMetric"] = 1;
 
                         setGateway = objMO.InvokeMethod("SetGateways", newGateway, null);
                     }
@@ -163,7 +165,7 @@ namespace DNS_Swapper
         /// <param name="priWINS">Primary WINS server address</param>
         /// <param name="secWINS">Secondary WINS server address</param>
         /// <remarks>Requires a reference to the System.Management namespace</remarks>
-        public void setWINS(string NIC, string priWINS, string secWINS)
+        public static void setWINS(string NIC, string priWINS, string secWINS)
         {
             ManagementClass objMC = new ManagementClass("Win32_NetworkAdapterConfiguration");
             ManagementObjectCollection objMOC = objMC.GetInstances();
@@ -197,7 +199,7 @@ namespace DNS_Swapper
         [DllImport("dnsapi.dll", EntryPoint = "DnsFlushResolverCache")]
         private static extern UInt32 DnsFlushResolverCache();
 
-        public static void FlushDNSCache() //This can be named whatever name you want and is the function you will call
+        public static void FlushDNSCache()
         {
             UInt32 result = DnsFlushResolverCache();
         }
@@ -211,7 +213,6 @@ namespace DNS_Swapper
             {
                 yield return nic.Id;
             }
-            yield break;
         }
     }
 }

@@ -14,7 +14,6 @@ namespace DNS_Swapper
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            MainMenu menu = new MainMenu();
             Application.Run();
 
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
