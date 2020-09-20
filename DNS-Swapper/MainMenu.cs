@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DNS_Swapper.Properties;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -13,7 +14,7 @@ namespace DNS_Swapper
 {
     public partial class MainMenu : Form
     {
-        private string Version = "b/1.4";
+        private readonly string Version = "1.5";
 
         public string version
         {
@@ -24,23 +25,18 @@ namespace DNS_Swapper
         {
             InitializeComponent();
 
+            // Upgrade settings file (user.config in %LOCALAPPDATA%\DNS_Swapper from previous version
+            Settings.Default.Upgrade();
+
             // Load network interfaces
-            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
-            {
-                if (nic.OperationalStatus == OperationalStatus.Up)
-                {
-                    if (!NIC_select.Items.Cast<string>().Contains(nic.Description))
-                    {
-                        NIC_select.Items.Add(nic.Description);
-                    }
-                }
-            }
+            scanNICs();
 
             // Load previously saved user settings
-            NIC_select.SelectedItem = Properties.Settings.Default.NIC;
+            NIC_select.SelectedIndex = NIC_select.FindStringExact(Settings.Default.NIC);
+
             // Remove blank in IP-Address
-            string DNS1_var = Properties.Settings.Default.DNS_1.Replace(" ", string.Empty);
-            string DNS2_var = Properties.Settings.Default.DNS_2.Replace(" ", string.Empty);
+            string DNS1_var = Settings.Default.DNS_1.Replace(" ", string.Empty);
+            string DNS2_var = Settings.Default.DNS_2.Replace(" ", string.Empty);
             // Variables used for validated IP-Addresses
             IPAddress DNS1_IP = new IPAddress(new byte[] { 127, 0, 0, 1 });
             IPAddress DNS2_IP = new IPAddress(new byte[] { 127, 0, 0, 1 });
@@ -63,14 +59,15 @@ namespace DNS_Swapper
                     DNS_1.Text = DNS1_var;
                     DNS_2.Text = DNS2_var;
 
+                    // Set taskbar icon color
                     if (NIC_select.SelectedItem != null && !string.IsNullOrEmpty(DNS_1.Text) && !string.IsNullOrEmpty(DNS_2.Text))
                     {
-                        if (NetworkManagement.getDNS().Equals(DNS1_IP))
+                        if (NetworkManagement.getDNS(NIC_select.SelectedItem.ToString()).Equals(DNS1_IP))
                         {
                             taskBarIcon.Icon = Resource1.icon_red;
                             changeToggleBtnPosition(false);
                         }
-                        else if (NetworkManagement.getDNS().Equals(DNS2_IP))
+                        else if (NetworkManagement.getDNS(NIC_select.SelectedItem.ToString()).Equals(DNS2_IP))
                         {
                             taskBarIcon.Icon = Resource1.icon_blue;
                             changeToggleBtnPosition(true);
@@ -79,7 +76,7 @@ namespace DNS_Swapper
                 }
                 else
                 {
-                    // DNS server IP(s) invalid - give error
+                    // DNS server IP(s) invalid - display error message
                     MessageBox.Show("Invalid configuration detected. Resetting settings to default", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     resetToolStripMenuItem_Click(null, null);
                     saveSettings();
@@ -162,11 +159,11 @@ namespace DNS_Swapper
             {
                 // Get current DNS server
 
-                IPAddress DNS_servers = NetworkManagement.getDNS();
+                IPAddress DNS_servers = NetworkManagement.getDNS(NIC_select.SelectedItem.ToString());
                 if (DNS_servers.Equals(IPAddress.Parse(Regex.Replace(DNS_1.Text, @"\s+", ""))))
                 {
                     callSwapDNS(NIC_select.SelectedItem.ToString(), Regex.Replace(DNS_2.Text, @"\s+", ""));
-                    IPAddress ip = NetworkManagement.getDNS();
+                    IPAddress ip = NetworkManagement.getDNS(NIC_select.SelectedItem.ToString());
                     if (ip.Equals(IPAddress.Parse(Regex.Replace(DNS_2.Text, @"\s+", ""))))
                     {
                         taskBarIcon.Icon = Resource1.icon_blue;
@@ -183,7 +180,7 @@ namespace DNS_Swapper
                 {
                     callSwapDNS(NIC_select.SelectedItem.ToString(), Regex.Replace(DNS_1.Text, @"\s+", ""));
 
-                    if (NetworkManagement.getDNS().Equals(IPAddress.Parse(Regex.Replace(DNS_1.Text, @"\s+", ""))))
+                    if (NetworkManagement.getDNS(NIC_select.SelectedItem.ToString()).Equals(IPAddress.Parse(Regex.Replace(DNS_1.Text, @"\s+", ""))))
                     {
                         taskBarIcon.Icon = Resource1.icon_red;
                         Icon = Resource1.icon_red;
@@ -193,6 +190,10 @@ namespace DNS_Swapper
                     {
                         taskBarIcon.Icon = Resource1.error;
                     }
+                }
+                else
+                {
+                    MessageBox.Show("Couldn't find any of the given DNS servers configured on the selected network interface", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 NetworkManagement.FlushDNSCache();
             }
@@ -211,7 +212,23 @@ namespace DNS_Swapper
 
         private void toggle_DNS_CheckedChanged(object sender, EventArgs e)
         {
+            DisableControls(true);
             SwapDNS();
+            DisableControls(false);
+        }
+
+        private void DisableControls(bool status)
+        {
+            if (status)
+            {
+                // Disable UI elements
+                settingsGB.Enabled = false;
+            }
+            else
+            {
+                // Enable UI elements
+                settingsGB.Enabled = true;
+            }
         }
 
         private void callSwapDNS(string NIC, string DNS)
@@ -233,9 +250,13 @@ namespace DNS_Swapper
                 catch (Win32Exception ex)
                 {
                     if (ex.NativeErrorCode == ERROR_CANCELLED)
-                        MessageBox.Show("Why you no select Yes?");
+                    {
+                        MessageBox.Show("DNS-Swapper (swap.exe) requires elevated permissions to change your DNS-Server.");
+                    }
                     else
+                    {
                         throw;
+                    }
                 }
             }
             else
@@ -266,23 +287,24 @@ namespace DNS_Swapper
         {
             if (DNS_1.Text == "..." && DNS_2.Text == "...")
             {
-                Properties.Settings.Default.DNS_1 = "";
-                Properties.Settings.Default.DNS_2 = "";
+                Settings.Default.DNS_1 = "";
+                Settings.Default.DNS_2 = "";
             }
             else
             {
-                Properties.Settings.Default.DNS_1 = DNS_1.Text;
-                Properties.Settings.Default.DNS_2 = DNS_2.Text;
+                Settings.Default.DNS_1 = DNS_1.Text;
+                Settings.Default.DNS_2 = DNS_2.Text;
             }
             if (NIC_select.SelectedItem != null)
             {
-                Properties.Settings.Default.NIC = NIC_select.SelectedItem.ToString();
+                ComboboxItem value = (ComboboxItem)NIC_select.SelectedItem;
+                Settings.Default.NIC = value.Text;
             }
             else
             {
-                Properties.Settings.Default.NIC = "";
+                Settings.Default.NIC = "";
             }
-            Properties.Settings.Default.Save();
+            Settings.Default.Save();
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -307,10 +329,10 @@ namespace DNS_Swapper
             bool IPv6IPfound = false;
             bool IPv4GWfound = false;
             bool IPv6GWfound = false;
-            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
-            {
-                if (nic.Description.Equals(NIC_select.SelectedItem))
-                {
+
+            ComboboxItem selectedNic = (ComboboxItem)NIC_select.SelectedItem;
+            NetworkInterface nic = (NetworkInterface)selectedNic.Value;
+
                     foreach (UnicastIPAddressInformation ip in nic.GetIPProperties().UnicastAddresses)
                     {
                         if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
@@ -339,8 +361,7 @@ namespace DNS_Swapper
                                 }
                             }
                         }
-                    }
-                }
+
             }
             if (!IPv4IPfound)
             {
@@ -362,15 +383,9 @@ namespace DNS_Swapper
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // show version
-            string versiontext = "DNS-Swapper version " + version + Environment.NewLine
-                + "Author: Stefan Bautz" + Environment.NewLine
-                + "Website: https://github.com/tryallthethings/DNS-Swapper" + Environment.NewLine
-                + Environment.NewLine
-                + "External libraries:" + Environment.NewLine
-                + "ipaddresscontrollib: https://github.com/m66n/ipaddresscontrollib" + Environment.NewLine
-                + "";
-                MessageBox.Show(versiontext, "About", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, 0, "https://github.com/tryallthethings/DNS-Swapper");
+            // Show about form
+            Form About = new About();
+            About.ShowDialog();
         }
 
         private void ValidateIPField(object sender, EventArgs e)
@@ -394,6 +409,55 @@ namespace DNS_Swapper
             {
                 tt.Show(message, IPvalidate, 0, -20, VisibleTime);
             }
+        }
+
+        private void refreshBTN_Click(object sender, EventArgs e)
+        {
+            scanNICs();
+        }
+
+        private void scanNICs()
+        {
+            // Clear network interfaces if not empty already
+            if (NIC_select.Items.Count > 0)
+            {
+                NIC_select.Items.Clear();
+            }
+            foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                if (activeNICsCB.Checked && nic.OperationalStatus != OperationalStatus.Up)
+                {
+                    continue;
+                }
+
+                ComboboxItem item = new ComboboxItem();
+                item.Text = nic.Description.ToString();
+                item.Value = nic;
+
+                NIC_select.Items.Add(item);
+
+            }
+
+            // Restore selected NIC from settings if saved
+            if (!string.IsNullOrEmpty(Settings.Default.NIC))
+            {
+                NIC_select.SelectedIndex = NIC_select.FindStringExact(Settings.Default.NIC);
+            }
+        }
+
+        private void activeNICsCB_CheckStateChanged(object sender, EventArgs e)
+        {
+            scanNICs();
+        }
+    }
+    public class ComboboxItem
+    {
+        public string Text { get; set; }
+        public object Value { get; set; }
+
+        public override string ToString()
+        {
+            return Text;
         }
     }
 }

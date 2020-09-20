@@ -137,13 +137,13 @@ namespace DNS_Swapper
             }
         }
 
-        public static IPAddress getDNS()
+        public static IPAddress getDNS(string NICname)
         {
             NetworkInterface[] networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
 
             foreach (NetworkInterface networkInterface in networkInterfaces)
             {
-                if (networkInterface.OperationalStatus == OperationalStatus.Up)
+                if (networkInterface.Description == NICname)
                 {
                     IPInterfaceProperties ipProperties = networkInterface.GetIPProperties();
                     IPAddressCollection dnsAddresses = ipProperties.DnsAddresses;

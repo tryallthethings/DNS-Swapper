@@ -47,7 +47,6 @@
             this.notify_context = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toggle_DNS = new ToggleBox();
             this.IPv4_Label = new System.Windows.Forms.Label();
             this.IPv4_Text = new System.Windows.Forms.Label();
             this.NIC_info = new System.Windows.Forms.GroupBox();
@@ -57,31 +56,34 @@
             this.IPv6_Text = new System.Windows.Forms.Label();
             this.GW_Label = new System.Windows.Forms.Label();
             this.IPv4_GW_Text = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.settingsGB = new System.Windows.Forms.GroupBox();
+            this.activeNICsCB = new System.Windows.Forms.CheckBox();
+            this.refreshBTN = new System.Windows.Forms.Button();
             this.DNS_2 = new IPAddressControlLib.IPAddressControl();
             this.DNS_1 = new IPAddressControlLib.IPAddressControl();
             this.Warning = new System.Windows.Forms.Label();
+            this.toggle_DNS = new ToggleBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.IPerrorProvider)).BeginInit();
             this.notify_context.SuspendLayout();
             this.NIC_info.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.settingsGB.SuspendLayout();
             this.SuspendLayout();
             // 
             // NIC_select
             // 
             this.NIC_select.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.NIC_select.FormattingEnabled = true;
-            this.NIC_select.Location = new System.Drawing.Point(9, 37);
+            this.NIC_select.Location = new System.Drawing.Point(10, 57);
             this.NIC_select.Name = "NIC_select";
-            this.NIC_select.Size = new System.Drawing.Size(313, 21);
+            this.NIC_select.Size = new System.Drawing.Size(324, 21);
             this.NIC_select.TabIndex = 0;
             this.NIC_select.SelectedIndexChanged += new System.EventHandler(this.updateIP);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 21);
+            this.label1.Location = new System.Drawing.Point(7, 41);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(91, 13);
             this.label1.TabIndex = 2;
@@ -90,7 +92,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(223, 67);
+            this.label2.Location = new System.Drawing.Point(244, 81);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(90, 13);
             this.label2.TabIndex = 3;
@@ -121,21 +123,21 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // resetToolStripMenuItem
             // 
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.resetToolStripMenuItem.Text = "Reset";
             this.resetToolStripMenuItem.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -150,13 +152,13 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 173);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 186);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(645, 22);
             this.statusStrip1.TabIndex = 6;
@@ -169,7 +171,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 67);
+            this.label3.Location = new System.Drawing.Point(10, 81);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(70, 13);
             this.label3.TabIndex = 8;
@@ -206,18 +208,6 @@
             this.exitToolStripMenuItem1.Text = "Exit";
             this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem1_Click);
             // 
-            // toggle_DNS
-            // 
-            this.toggle_DNS.AutoSize = true;
-            this.toggle_DNS.Location = new System.Drawing.Point(114, 79);
-            this.toggle_DNS.Name = "toggle_DNS";
-            this.toggle_DNS.Padding = new System.Windows.Forms.Padding(6);
-            this.toggle_DNS.Size = new System.Drawing.Size(96, 29);
-            this.toggle_DNS.TabIndex = 9;
-            this.toggle_DNS.Text = "toggle_DNS";
-            this.toggle_DNS.UseVisualStyleBackColor = true;
-            this.toggle_DNS.CheckedChanged += new System.EventHandler(this.toggle_DNS_CheckedChanged);
-            // 
             // IPv4_Label
             // 
             this.IPv4_Label.AutoSize = true;
@@ -248,7 +238,7 @@
             this.NIC_info.Controls.Add(this.IPv4_Text);
             this.NIC_info.Location = new System.Drawing.Point(358, 27);
             this.NIC_info.Name = "NIC_info";
-            this.NIC_info.Size = new System.Drawing.Size(275, 117);
+            this.NIC_info.Size = new System.Drawing.Size(275, 129);
             this.NIC_info.TabIndex = 13;
             this.NIC_info.TabStop = false;
             this.NIC_info.Text = "NIC Info";
@@ -307,21 +297,46 @@
             this.IPv4_GW_Text.TabIndex = 13;
             this.IPv4_GW_Text.Text = "GW";
             // 
-            // groupBox1
+            // settingsGB
             // 
-            this.groupBox1.Controls.Add(this.DNS_2);
-            this.groupBox1.Controls.Add(this.DNS_1);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.NIC_select);
-            this.groupBox1.Controls.Add(this.toggle_DNS);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Location = new System.Drawing.Point(12, 27);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(340, 117);
-            this.groupBox1.TabIndex = 14;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Settings";
+            this.settingsGB.Controls.Add(this.activeNICsCB);
+            this.settingsGB.Controls.Add(this.refreshBTN);
+            this.settingsGB.Controls.Add(this.DNS_2);
+            this.settingsGB.Controls.Add(this.DNS_1);
+            this.settingsGB.Controls.Add(this.label1);
+            this.settingsGB.Controls.Add(this.NIC_select);
+            this.settingsGB.Controls.Add(this.toggle_DNS);
+            this.settingsGB.Controls.Add(this.label2);
+            this.settingsGB.Controls.Add(this.label3);
+            this.settingsGB.Location = new System.Drawing.Point(12, 27);
+            this.settingsGB.Name = "settingsGB";
+            this.settingsGB.Size = new System.Drawing.Size(340, 129);
+            this.settingsGB.TabIndex = 14;
+            this.settingsGB.TabStop = false;
+            this.settingsGB.Text = "Settings";
+            // 
+            // activeNICsCB
+            // 
+            this.activeNICsCB.AutoSize = true;
+            this.activeNICsCB.Checked = true;
+            this.activeNICsCB.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.activeNICsCB.Location = new System.Drawing.Point(6, 19);
+            this.activeNICsCB.Name = "activeNICsCB";
+            this.activeNICsCB.Size = new System.Drawing.Size(244, 17);
+            this.activeNICsCB.TabIndex = 13;
+            this.activeNICsCB.Text = "Only list active (connected) network interfaces";
+            this.activeNICsCB.UseVisualStyleBackColor = true;
+            this.activeNICsCB.CheckStateChanged += new System.EventHandler(this.activeNICsCB_CheckStateChanged);
+            // 
+            // refreshBTN
+            // 
+            this.refreshBTN.Location = new System.Drawing.Point(259, 19);
+            this.refreshBTN.Name = "refreshBTN";
+            this.refreshBTN.Size = new System.Drawing.Size(75, 23);
+            this.refreshBTN.TabIndex = 12;
+            this.refreshBTN.Text = "Refresh";
+            this.refreshBTN.UseVisualStyleBackColor = true;
+            this.refreshBTN.Click += new System.EventHandler(this.refreshBTN_Click);
             // 
             // DNS_2
             // 
@@ -330,7 +345,7 @@
             this.DNS_2.BackColor = System.Drawing.SystemColors.Window;
             this.DNS_2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.DNS_2.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.DNS_2.Location = new System.Drawing.Point(226, 83);
+            this.DNS_2.Location = new System.Drawing.Point(247, 97);
             this.DNS_2.MinimumSize = new System.Drawing.Size(87, 20);
             this.DNS_2.Name = "DNS_2";
             this.DNS_2.ReadOnly = false;
@@ -346,7 +361,7 @@
             this.DNS_1.BackColor = System.Drawing.SystemColors.Window;
             this.DNS_1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.DNS_1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.DNS_1.Location = new System.Drawing.Point(9, 83);
+            this.DNS_1.Location = new System.Drawing.Point(10, 97);
             this.DNS_1.MinimumSize = new System.Drawing.Size(87, 20);
             this.DNS_1.Name = "DNS_1";
             this.DNS_1.ReadOnly = false;
@@ -357,29 +372,43 @@
             // 
             // Warning
             // 
+            this.Warning.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Warning.AutoSize = true;
-            this.Warning.Location = new System.Drawing.Point(9, 152);
+            this.Warning.Location = new System.Drawing.Point(12, 164);
             this.Warning.Name = "Warning";
-            this.Warning.Size = new System.Drawing.Size(540, 13);
+            this.Warning.Size = new System.Drawing.Size(626, 13);
             this.Warning.TabIndex = 15;
-            this.Warning.Text = "Note: Using this tool will (currently) remove any additional configured DNS serve" +
-    "rs on the given network interface!";
+            this.Warning.Text = "Note: Using this tool will remove any configured DNS servers on the selected netw" +
+    "ork interface and replace it with the value above!";
+            // 
+            // toggle_DNS
+            // 
+            this.toggle_DNS.AutoSize = true;
+            this.toggle_DNS.Location = new System.Drawing.Point(125, 93);
+            this.toggle_DNS.Name = "toggle_DNS";
+            this.toggle_DNS.Padding = new System.Windows.Forms.Padding(6);
+            this.toggle_DNS.Size = new System.Drawing.Size(96, 29);
+            this.toggle_DNS.TabIndex = 9;
+            this.toggle_DNS.Text = "toggle_DNS";
+            this.toggle_DNS.UseVisualStyleBackColor = true;
+            this.toggle_DNS.CheckedChanged += new System.EventHandler(this.toggle_DNS_CheckedChanged);
             // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(645, 195);
+            this.ClientSize = new System.Drawing.Size(645, 208);
             this.Controls.Add(this.Warning);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.settingsGB);
             this.Controls.Add(this.NIC_info);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(800, 300);
-            this.MinimumSize = new System.Drawing.Size(500, 180);
+            this.MaximumSize = new System.Drawing.Size(661, 247);
+            this.MinimumSize = new System.Drawing.Size(661, 247);
             this.Name = "MainMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DNS-Swapper";
@@ -389,8 +418,8 @@
             this.notify_context.ResumeLayout(false);
             this.NIC_info.ResumeLayout(false);
             this.NIC_info.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.settingsGB.ResumeLayout(false);
+            this.settingsGB.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -419,7 +448,7 @@
         private System.Windows.Forms.Label IPv4_Label;
         private System.Windows.Forms.GroupBox NIC_info;
         private System.Windows.Forms.Label IPv4_GW_Text;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox settingsGB;
         private System.Windows.Forms.Label GW_Label;
         private System.Windows.Forms.Label IPv6_Label;
         private System.Windows.Forms.Label IPv6_Text;
@@ -428,6 +457,8 @@
         private IPAddressControlLib.IPAddressControl DNS_2;
         private IPAddressControlLib.IPAddressControl DNS_1;
         private System.Windows.Forms.Label Warning;
+        private System.Windows.Forms.Button refreshBTN;
+        private System.Windows.Forms.CheckBox activeNICsCB;
     }
 }
 
