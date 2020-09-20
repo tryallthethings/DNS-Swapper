@@ -5,10 +5,11 @@ namespace DNS_Swapper
 {
     public partial class About : Form
     {
-        public About()
+        public About(string AppVersion)
         {
             InitializeComponent();
             CenterToScreen();
+            version.Text = AppVersion;
         }
 
         private void About_Load(object sender, EventArgs e)

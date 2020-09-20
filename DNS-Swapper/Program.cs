@@ -15,13 +15,6 @@ namespace DNS_Swapper
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainMenu());
-
-            AppDomain.CurrentDomain.ProcessExit += OnProcessExit;
-        }
-
-        static void OnProcessExit(object sender, EventArgs e)
-        {
-            // Cleanup
         }
     }
 }

@@ -384,7 +384,7 @@ namespace DNS_Swapper
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Show about form
-            Form About = new About();
+            Form About = new About(version);
             About.ShowDialog();
         }
 
