@@ -9,20 +9,18 @@ using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
+using AutoUpdaterDotNET;
 
 namespace DNS_Swapper
 {
     public partial class MainMenu : Form
     {
-        private readonly string Version = "1.5";
-
-        public string version
-        {
-            get { return Version; }
-        }
+        public string version { get; } = "1.5";
 
         public MainMenu()
         {
+            AutoUpdater.Start("https://www.tryallthethings.xyz/downloads/DNS-Swapper.xml");
+
             InitializeComponent();
 
             // Upgrade settings file (user.config in %LOCALAPPDATA%\DNS_Swapper from previous version
@@ -52,7 +50,7 @@ namespace DNS_Swapper
             else
             {
                 // Validate configuration
-                if ((IPAddress.TryParse(DNS1_var, out DNS1_IP)) && (IPAddress.TryParse(DNS2_var, out DNS2_IP)))
+                if (IPAddress.TryParse(DNS1_var, out DNS1_IP) && IPAddress.TryParse(DNS2_var, out DNS2_IP))
                 {
                     // DNS server IPs valid
                     // Set Loaded variables into settings text boxes
@@ -448,6 +446,11 @@ namespace DNS_Swapper
         private void activeNICsCB_CheckStateChanged(object sender, EventArgs e)
         {
             scanNICs();
+        }
+
+        private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AutoUpdater.Start("https://www.tryallthethings.xyz/downloads/DNS-Swapper.xml");
         }
     }
     public class ComboboxItem

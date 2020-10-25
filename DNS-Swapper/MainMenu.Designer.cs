@@ -61,8 +61,9 @@
             this.refreshBTN = new System.Windows.Forms.Button();
             this.DNS_2 = new IPAddressControlLib.IPAddressControl();
             this.DNS_1 = new IPAddressControlLib.IPAddressControl();
-            this.Warning = new System.Windows.Forms.Label();
             this.toggle_DNS = new ToggleBox();
+            this.Warning = new System.Windows.Forms.Label();
+            this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.IPerrorProvider)).BeginInit();
             this.notify_context.SuspendLayout();
@@ -144,7 +145,8 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem});
+            this.aboutToolStripMenuItem,
+            this.checkForUpdatesToolStripMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(24, 20);
             this.toolStripMenuItem1.Text = "?";
@@ -370,6 +372,18 @@
             this.DNS_1.Text = "...";
             this.DNS_1.Leave += new System.EventHandler(this.ValidateIPField);
             // 
+            // toggle_DNS
+            // 
+            this.toggle_DNS.AutoSize = true;
+            this.toggle_DNS.Location = new System.Drawing.Point(125, 93);
+            this.toggle_DNS.Name = "toggle_DNS";
+            this.toggle_DNS.Padding = new System.Windows.Forms.Padding(6);
+            this.toggle_DNS.Size = new System.Drawing.Size(96, 29);
+            this.toggle_DNS.TabIndex = 9;
+            this.toggle_DNS.Text = "toggle_DNS";
+            this.toggle_DNS.UseVisualStyleBackColor = true;
+            this.toggle_DNS.CheckedChanged += new System.EventHandler(this.toggle_DNS_CheckedChanged);
+            // 
             // Warning
             // 
             this.Warning.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -382,17 +396,12 @@
             this.Warning.Text = "Note: Using this tool will remove any configured DNS servers on the selected netw" +
     "ork interface and replace it with the value above!";
             // 
-            // toggle_DNS
+            // checkForUpdatesToolStripMenuItem
             // 
-            this.toggle_DNS.AutoSize = true;
-            this.toggle_DNS.Location = new System.Drawing.Point(125, 93);
-            this.toggle_DNS.Name = "toggle_DNS";
-            this.toggle_DNS.Padding = new System.Windows.Forms.Padding(6);
-            this.toggle_DNS.Size = new System.Drawing.Size(96, 29);
-            this.toggle_DNS.TabIndex = 9;
-            this.toggle_DNS.Text = "toggle_DNS";
-            this.toggle_DNS.UseVisualStyleBackColor = true;
-            this.toggle_DNS.CheckedChanged += new System.EventHandler(this.toggle_DNS_CheckedChanged);
+            this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
+            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.checkForUpdatesToolStripMenuItem.Text = "Check for Updates";
+            this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
             // 
             // MainMenu
             // 
@@ -459,6 +468,7 @@
         private System.Windows.Forms.Label Warning;
         private System.Windows.Forms.Button refreshBTN;
         private System.Windows.Forms.CheckBox activeNICsCB;
+        private System.Windows.Forms.ToolStripMenuItem checkForUpdatesToolStripMenuItem;
     }
 }
 

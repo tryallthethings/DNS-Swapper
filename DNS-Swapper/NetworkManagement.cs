@@ -128,8 +128,6 @@ namespace DNS_Swapper
                         }
                         catch (Exception e)
                         {
-                            Console.WriteLine(e.ToString());
-                            Console.ReadKey();
                             throw;
                         }
                     }

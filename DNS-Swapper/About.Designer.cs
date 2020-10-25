@@ -93,7 +93,8 @@
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(340, 50);
             this.richTextBox1.TabIndex = 5;
-            this.richTextBox1.Text = "IPaddressControlLib: https://github.com/m66n/ipaddresscontrollib";
+            this.richTextBox1.Text = "IPaddressControlLib: https://github.com/m66n/ipaddresscontrollib\nAutoUpdater.NET:" +
+    " https://github.com/ravibpatel/AutoUpdater.NET";
             // 
             // closeBTN
             // 
