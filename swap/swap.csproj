@@ -80,4 +80,8 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>del DNS-Swapper.exe
+..\..\..\packages\ILRepack.2.0.18\tools\ILRepack.exe /out:"DNS-Swapper.exe" DNS-Swapper-nodll.exe AutoUpdater.NET.dll IPAddressControlLib.dll</PostBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -10,12 +10,13 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using AutoUpdaterDotNET;
+using System.Reflection;
 
 namespace DNS_Swapper
 {
     public partial class MainMenu : Form
     {
-        public string version { get; } = "1.5";
+        public string version { get; } = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         public MainMenu()
         {

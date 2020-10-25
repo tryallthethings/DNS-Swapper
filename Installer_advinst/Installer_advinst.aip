@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="17.4.1" version="17.4.1" Modules="simple" RootPath="." Language="en" Id="{921A7204-4C5F-408B-A907-51BDB40A54F5}">
+<DOCUMENT Type="Advanced Installer" CreateVersion="17.4.1" version="17.6" Modules="simple" RootPath="." Language="en" Id="{921A7204-4C5F-408B-A907-51BDB40A54F5}">
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
     <ROW Property="AI_PREDEF_LCONDS_PROPS" Value="AI_DETECTED_DOTNET_VERSION"/>
@@ -13,10 +13,10 @@
     <ROW Property="CTRLS" Value="2"/>
     <ROW Property="MSIFASTINSTALL" MultiBuildValue="DefaultBuild:1"/>
     <ROW Property="Manufacturer" Value="TryAllTheThings"/>
-    <ROW Property="ProductCode" Value="1033:{8666AC12-D453-44CD-B9F3-190C29FA3925} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{02E9BC65-B928-4629-841E-2BFD8A8B348E} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="DNS-Swapper"/>
-    <ROW Property="ProductVersion" Value="1.5.0.0" Type="32" TargetFile="DNSSwapper.exe"/>
+    <ROW Property="ProductVersion" Value="1.5.2.0" Type="32" TargetFile="DNSSwapper.exe"/>
     <ROW Property="REBOOT" MultiBuildValue="DefaultBuild:ReallySuppress"/>
     <ROW Property="RUNAPPLICATION" Value="1" Type="4"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
@@ -42,7 +42,6 @@
     <ROW Component="APPDIR" ComponentId="{7F2AC042-013E-4338-BB57-AAAD8ED89CCB}" Directory_="APPDIR" Attributes="0"/>
     <ROW Component="DNSSwapper" ComponentId="{8EED62E4-25D6-4DAD-98C5-7B870AE09FB3}" Directory_="DNSSwapper_Dir" Attributes="0"/>
     <ROW Component="DNSSwapper.exe" ComponentId="{BB3AD6AE-3EDE-4540-BCC3-2CF340141D34}" Directory_="APPDIR" Attributes="0" KeyPath="DNSSwapper.exe"/>
-    <ROW Component="IPAddressControlLib.dll" ComponentId="{74ED2A5C-19BD-4983-A989-74E832747D0A}" Directory_="APPDIR" Attributes="0" KeyPath="IPAddressControlLib.dll"/>
     <ROW Component="ProductInformation" ComponentId="{C5CDE245-B971-471C-9951-9C4A92790C86}" Directory_="APPDIR" Attributes="260" KeyPath="Version"/>
     <ROW Component="ipaddresscontrollib_license.txt" ComponentId="{932BDB66-B5C5-42F5-8EC5-53F88B47620D}" Directory_="APPDIR" Attributes="0" KeyPath="ipaddresscontrollib_license.txt" Type="0"/>
     <ROW Component="swap.exe" ComponentId="{B6B8492D-D015-4EFA-9765-4C37873EF11C}" Directory_="APPDIR" Attributes="0" KeyPath="swap.exe"/>
@@ -53,9 +52,9 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
     <ROW File="DNSSwapper.exe" Component_="DNSSwapper.exe" FileName="DNS-SW~1.EXE|DNS-Swapper.exe" Attributes="0" SourcePath="..\swap\bin\Release\DNS-Swapper.exe" SelfReg="false" DigSign="true"/>
-    <ROW File="IPAddressControlLib.dll" Component_="IPAddressControlLib.dll" FileName="IPADDR~1.DLL|IPAddressControlLib.dll" Attributes="0" SourcePath="..\swap\bin\Release\IPAddressControlLib.dll" SelfReg="false"/>
     <ROW File="swap.exe" Component_="swap.exe" FileName="swap.exe" Attributes="0" SourcePath="..\swap\bin\Release\swap.exe" SelfReg="false" DigSign="true"/>
     <ROW File="ipaddresscontrollib_license.txt" Component_="ipaddresscontrollib_license.txt" FileName="IPADDR~1.TXT|ipaddresscontrollib_license.txt" Attributes="0" SourcePath="..\DNS-Swapper\licenses\ipaddresscontrollib_license.txt" SelfReg="false"/>
+    <ROW File="autoupdaternet_license.txt" Component_="ipaddresscontrollib_license.txt" FileName="AUTOUP~1.TXT|autoupdaternet_license.txt" Attributes="0" SourcePath="..\DNS-Swapper\licenses\autoupdaternet_license.txt" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AiPersistentPropComponent">
     <ROW Property="AI_INSTALLPERUSER" Registry="AI_INSTALLPERUSER" HklmSearch="AI_INSTALLPERUSER" HkcuSearch="AI_INSTALLPERUSER_1" Hklm64Search="AI_INSTALLPERUSER_2" Hkcu64Search="AI_INSTALLPERUSER_3"/>
@@ -150,7 +149,6 @@
     <ROW Feature_="MainFeature" Component_="ProductInformation"/>
     <ROW Feature_="MainFeature" Component_="DNSSwapper"/>
     <ROW Feature_="MainFeature" Component_="DNSSwapper.exe"/>
-    <ROW Feature_="MainFeature" Component_="IPAddressControlLib.dll"/>
     <ROW Feature_="MainFeature" Component_="swap.exe"/>
     <ROW Feature_="MainFeature" Component_="AI_INSTALLPERUSER"/>
     <ROW Feature_="MainFeature" Component_="ipaddresscontrollib_license.txt"/>
@@ -182,8 +180,8 @@
     <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]." DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiRegLocatorComponent">
-    <ROW Signature_="AI_INSTALLPERUSER" Root="2" Key="Software\[Manufacturer]\[UpgradeCode]" Name="AI_INSTALLPERUSER" Type="2"/>
-    <ROW Signature_="AI_INSTALLPERUSER_1" Root="1" Key="Software\[Manufacturer]\[UpgradeCode]" Name="AI_INSTALLPERUSER" Type="2"/>
+    <ROW Signature_="AI_INSTALLPERUSER" Root="2" Key="Software\[Manufacturer]\[UpgradeCode]" Name="AI_INSTALLPERUSER" Type="18"/>
+    <ROW Signature_="AI_INSTALLPERUSER_1" Root="1" Key="Software\[Manufacturer]\[UpgradeCode]" Name="AI_INSTALLPERUSER" Type="18"/>
     <ROW Signature_="AI_INSTALLPERUSER_2" Root="2" Key="Software\[Manufacturer]\[UpgradeCode]" Name="AI_INSTALLPERUSER" Type="18"/>
     <ROW Signature_="AI_INSTALLPERUSER_3" Root="1" Key="Software\[Manufacturer]\[UpgradeCode]" Name="AI_INSTALLPERUSER" Type="18"/>
   </COMPONENT>
