@@ -13,10 +13,10 @@
     <ROW Property="CTRLS" Value="2"/>
     <ROW Property="MSIFASTINSTALL" MultiBuildValue="DefaultBuild:1"/>
     <ROW Property="Manufacturer" Value="TryAllTheThings"/>
-    <ROW Property="ProductCode" Value="1033:{02E9BC65-B928-4629-841E-2BFD8A8B348E} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{C3F2BDC4-892D-4A5D-8CD7-3B25D2BFED12} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="DNS-Swapper"/>
-    <ROW Property="ProductVersion" Value="1.5.2.0" Type="32" TargetFile="DNSSwapper.exe"/>
+    <ROW Property="ProductVersion" Value="1.5.3.0" Type="32" TargetFile="DNSSwapper.exe"/>
     <ROW Property="REBOOT" MultiBuildValue="DefaultBuild:ReallySuppress"/>
     <ROW Property="RUNAPPLICATION" Value="1" Type="4"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
@@ -51,7 +51,7 @@
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
-    <ROW File="DNSSwapper.exe" Component_="DNSSwapper.exe" FileName="DNS-SW~1.EXE|DNS-Swapper.exe" Attributes="0" SourcePath="..\swap\bin\Release\DNS-Swapper.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="DNSSwapper.exe" Component_="DNSSwapper.exe" FileName="DNS-SW~1.EXE|DNS-Swapper.exe" Attributes="0" SourcePath="..\DNS-Swapper\bin\Release\DNS-Swapper.exe" SelfReg="false" DigSign="true"/>
     <ROW File="swap.exe" Component_="swap.exe" FileName="swap.exe" Attributes="0" SourcePath="..\swap\bin\Release\swap.exe" SelfReg="false" DigSign="true"/>
     <ROW File="ipaddresscontrollib_license.txt" Component_="ipaddresscontrollib_license.txt" FileName="IPADDR~1.TXT|ipaddresscontrollib_license.txt" Attributes="0" SourcePath="..\DNS-Swapper\licenses\ipaddresscontrollib_license.txt" SelfReg="false"/>
     <ROW File="autoupdaternet_license.txt" Component_="ipaddresscontrollib_license.txt" FileName="AUTOUP~1.TXT|autoupdaternet_license.txt" Attributes="0" SourcePath="..\DNS-Swapper\licenses\autoupdaternet_license.txt" SelfReg="false"/>
