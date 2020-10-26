@@ -1,0 +1,1 @@
+pwsh .\get-checksums.ps1
