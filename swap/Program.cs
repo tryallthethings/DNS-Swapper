@@ -7,7 +7,7 @@ namespace swap
     {
         static void Main(string[] args)
         {
-            NetworkManagement.setDNS(args[0], args[1]);
+            NetworkManagement.SetDNS(args[0], args[1]);
         }
 
         public class NetworkManagement
@@ -38,7 +38,7 @@ namespace swap
             /// <param name="NIC">NIC address</param>
             /// <param name="DNS">DNS server address</param>
             /// <remarks>Requires a reference to the System.Management namespace</remarks>
-            public static void setDNS(string NIC, string DNS)
+            public static void SetDNS(string NIC, string DNS)
             {
                 ConnectionOptions options = PrepareOptions();
                 ManagementScope scope = PrepareScope(Environment.MachineName, options, @"\root\CIMV2");

@@ -35,7 +35,7 @@ namespace DNS_Swapper
         /// <param name="ip_address">The IP Address</param>
         /// <param name="subnet_mask">The Submask IP Address</param>
         /// <remarks>Requires a reference to the System.Management namespace</remarks>
-        public static void setIP(string ip_address, string subnet_mask)
+        public static void SetIP(string ip_address, string subnet_mask)
         {
             ConnectionOptions options = PrepareOptions();
             ManagementScope scope = PrepareScope(Environment.MachineName, options, @"\root\CIMV2");
@@ -72,7 +72,7 @@ namespace DNS_Swapper
         /// </summary>
         /// <param name="gateway">The Gateway IP Address</param>
         /// <remarks>Requires a reference to the System.Management namespace</remarks>
-        public void setGateway(string gateway)
+        public void SetGateway(string gateway)
         {
             ManagementClass objMC = new ManagementClass("Win32_NetworkAdapterConfiguration");
             ManagementObjectCollection objMOC = objMC.GetInstances();
@@ -100,7 +100,7 @@ namespace DNS_Swapper
             }
         }
 
-        public static IPAddress getDNS(string NICname)
+        public static IPAddress GetDNS(string NICname)
         {
             NetworkInterface[] networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
 
@@ -128,7 +128,7 @@ namespace DNS_Swapper
         /// <param name="priWINS">Primary WINS server address</param>
         /// <param name="secWINS">Secondary WINS server address</param>
         /// <remarks>Requires a reference to the System.Management namespace</remarks>
-        public static void setWINS(string NIC, string priWINS, string secWINS)
+        public static void SetWINS(string NIC, string priWINS, string secWINS)
         {
             ManagementClass objMC = new ManagementClass("Win32_NetworkAdapterConfiguration");
             ManagementObjectCollection objMOC = objMC.GetInstances();
@@ -158,7 +158,6 @@ namespace DNS_Swapper
             }
         }
 
-
         [DllImport("dnsapi.dll", EntryPoint = "DnsFlushResolverCache")]
         private static extern UInt32 DnsFlushResolverCache();
 
@@ -170,7 +169,7 @@ namespace DNS_Swapper
 
     public class Adapters
     {
-        public IEnumerable<String> net_adapters()
+        public IEnumerable<String> Net_adapters()
         {
             foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
             {

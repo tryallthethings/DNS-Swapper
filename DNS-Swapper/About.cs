@@ -17,12 +17,12 @@ namespace DNS_Swapper
 
         }
 
-        private void openLicenseFolder(object sender, EventArgs e)
+        private void OpenLicenseFolder(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory);
         }
 
-        private void closeBTN_Click(object sender, EventArgs e)
+        private void CloseBTN_Click(object sender, EventArgs e)
         {
             Close();
         }

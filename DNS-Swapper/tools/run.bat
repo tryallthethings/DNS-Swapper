@@ -1,1 +1,1 @@
-pwsh .\get-checksums.ps1
+powershell .\get-checksums.ps1

@@ -105,7 +105,7 @@
             this.closeBTN.TabIndex = 6;
             this.closeBTN.Text = "Close";
             this.closeBTN.UseVisualStyleBackColor = true;
-            this.closeBTN.Click += new System.EventHandler(this.closeBTN_Click);
+            this.closeBTN.Click += new System.EventHandler(this.CloseBTN_Click);
             // 
             // licenseBTN
             // 
@@ -116,7 +116,7 @@
             this.licenseBTN.TabIndex = 7;
             this.licenseBTN.Text = "Licenses...";
             this.licenseBTN.UseVisualStyleBackColor = true;
-            this.licenseBTN.Click += new System.EventHandler(this.openLicenseFolder);
+            this.licenseBTN.Click += new System.EventHandler(this.OpenLicenseFolder);
             // 
             // label5
             // 

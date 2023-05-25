@@ -40,6 +40,7 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.IPerrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.label3 = new System.Windows.Forms.Label();
@@ -63,7 +64,6 @@
             this.DNS_1 = new IPAddressControlLib.IPAddressControl();
             this.toggle_DNS = new ToggleBox();
             this.Warning = new System.Windows.Forms.Label();
-            this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.IPerrorProvider)).BeginInit();
             this.notify_context.SuspendLayout();
@@ -79,7 +79,7 @@
             this.NIC_select.Name = "NIC_select";
             this.NIC_select.Size = new System.Drawing.Size(324, 21);
             this.NIC_select.TabIndex = 0;
-            this.NIC_select.SelectedIndexChanged += new System.EventHandler(this.updateIP);
+            this.NIC_select.SelectedIndexChanged += new System.EventHandler(this.UpdateIP);
             // 
             // label1
             // 
@@ -109,7 +109,7 @@
             this.menuStrip1.Size = new System.Drawing.Size(645, 24);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.Resize += new System.EventHandler(this.menuStrip1_Resize);
+            this.menuStrip1.Resize += new System.EventHandler(this.MenuStrip1_Resize);
             // 
             // fileToolStripMenuItem
             // 
@@ -124,23 +124,23 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
             this.saveToolStripMenuItem.Text = "Save";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // resetToolStripMenuItem
             // 
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
             this.resetToolStripMenuItem.Text = "Reset";
-            this.resetToolStripMenuItem.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
+            this.resetToolStripMenuItem.Click += new System.EventHandler(this.ResetToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
             this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -154,9 +154,16 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
+            // 
+            // checkForUpdatesToolStripMenuItem
+            // 
+            this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
+            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.checkForUpdatesToolStripMenuItem.Text = "Check for Updates";
+            this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.CheckForUpdatesToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -185,8 +192,8 @@
             this.taskBarIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("taskBarIcon.Icon")));
             this.taskBarIcon.Text = "DNS-Swapper";
             this.taskBarIcon.Visible = true;
-            this.taskBarIcon.DoubleClick += new System.EventHandler(this.taskBarIcon_DoubleClick);
-            this.taskBarIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.taskBarIcon_Click);
+            this.taskBarIcon.DoubleClick += new System.EventHandler(this.TaskBarIcon_DoubleClick);
+            this.taskBarIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TaskBarIcon_Click);
             // 
             // notify_context
             // 
@@ -201,14 +208,14 @@
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem1
             // 
             this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
             this.exitToolStripMenuItem1.Size = new System.Drawing.Size(103, 22);
             this.exitToolStripMenuItem1.Text = "Exit";
-            this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem1_Click);
+            this.exitToolStripMenuItem1.Click += new System.EventHandler(this.ExitToolStripMenuItem1_Click);
             // 
             // IPv4_Label
             // 
@@ -328,7 +335,7 @@
             this.activeNICsCB.TabIndex = 13;
             this.activeNICsCB.Text = "Only list active (connected) network interfaces";
             this.activeNICsCB.UseVisualStyleBackColor = true;
-            this.activeNICsCB.CheckStateChanged += new System.EventHandler(this.activeNICsCB_CheckStateChanged);
+            this.activeNICsCB.CheckStateChanged += new System.EventHandler(this.ActiveNICsCB_CheckStateChanged);
             // 
             // refreshBTN
             // 
@@ -338,7 +345,7 @@
             this.refreshBTN.TabIndex = 12;
             this.refreshBTN.Text = "Refresh";
             this.refreshBTN.UseVisualStyleBackColor = true;
-            this.refreshBTN.Click += new System.EventHandler(this.refreshBTN_Click);
+            this.refreshBTN.Click += new System.EventHandler(this.RefreshBTN_Click);
             // 
             // DNS_2
             // 
@@ -382,7 +389,7 @@
             this.toggle_DNS.TabIndex = 9;
             this.toggle_DNS.Text = "toggle_DNS";
             this.toggle_DNS.UseVisualStyleBackColor = true;
-            this.toggle_DNS.CheckedChanged += new System.EventHandler(this.toggle_DNS_CheckedChanged);
+            this.toggle_DNS.CheckedChanged += new System.EventHandler(this.Toggle_DNS_CheckedChanged);
             // 
             // Warning
             // 
@@ -395,13 +402,6 @@
             this.Warning.TabIndex = 15;
             this.Warning.Text = "Note: Using this tool will remove any configured DNS servers on the selected netw" +
     "ork interface and replace it with the value above!";
-            // 
-            // checkForUpdatesToolStripMenuItem
-            // 
-            this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
-            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.checkForUpdatesToolStripMenuItem.Text = "Check for Updates";
-            this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
             // 
             // MainMenu
             // 
@@ -421,6 +421,7 @@
             this.Name = "MainMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DNS-Swapper";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainMenu_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.IPerrorProvider)).EndInit();
