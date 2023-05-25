@@ -27,7 +27,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.5.5.0</ApplicationVersion>
+    <ApplicationVersion>1.5.7.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -206,7 +206,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>del DNS-Swapper.exe
-..\..\..\packages\ILRepack.2.0.18\tools\ILRepack.exe /out:"DNS-Swapper.exe" DNS-Swapper-nodll.exe AutoUpdater.NET.dll IPAddressControlLib.dll</PostBuildEvent>
+..\..\..\packages\ILRepack.2.0.18\tools\ILRepack.exe /out:"DNS-Swapper.exe" DNS-Swapper-nodll.exe AutoUpdater.NET.dll IPAddressControlLib.dll Microsoft.Web.WebView2.Core.dll Microsoft.Web.WebView2.WinForms.dll Microsoft.Web.WebView2.Wpf.dll</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
