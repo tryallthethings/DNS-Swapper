@@ -70,5 +70,17 @@ namespace DNS_Swapper.Properties {
                 this["WindowLocation"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastUpdatedVersion {
+            get {
+                return ((string)(this["LastUpdatedVersion"]));
+            }
+            set {
+                this["LastUpdatedVersion"] = value;
+            }
+        }
     }
 }

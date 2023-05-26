@@ -17,6 +17,7 @@ namespace DNS_Swapper
     public partial class MainMenu : Form
     {
         public string Version { get; } = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        private bool updateGUI = false;
 
         public MainMenu()
         {
@@ -25,7 +26,12 @@ namespace DNS_Swapper
             InitializeComponent();
 
             // Upgrade settings file (user.config in %LOCALAPPDATA%\DNS_Swapper from previous version
-            Settings.Default.Upgrade();
+            if (Settings.Default.LastUpdatedVersion != Version)
+            {
+                Settings.Default.Upgrade();
+                Settings.Default.LastUpdatedVersion = Version;
+                Settings.Default.Save();
+            }
 
             // Load network interfaces
             ScanNICs();
@@ -241,9 +247,11 @@ namespace DNS_Swapper
 
         private void ResetToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            updateGUI = true;
             NIC_select.SelectedIndex = -1;
             DNS_1.Text = "";
             DNS_2.Text = "";
+            updateGUI = false;
         }
 
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -257,11 +265,14 @@ namespace DNS_Swapper
             Application.Exit();
         }
 
-        private void SaveSettings()
+        private void SaveSettings(bool NIConly = false)
         {
-            // Check for placeholder values and save accordingly
-            Settings.Default.DNS_1 = DNS_1.Text != "..." ? DNS_1.Text : "";
-            Settings.Default.DNS_2 = DNS_2.Text != "..." ? DNS_2.Text : "";
+            if (!NIConly)
+            {
+                // Check for placeholder values and save accordingly
+                Settings.Default.DNS_1 = DNS_1.Text != "..." ? DNS_1.Text : "";
+                Settings.Default.DNS_2 = DNS_2.Text != "..." ? DNS_2.Text : "";
+            }
 
             // Check if NIC_select has a selected item
             if (NIC_select.SelectedItem != null)
@@ -295,6 +306,10 @@ namespace DNS_Swapper
 
         private void UpdateIP(object sender, EventArgs e)
         {
+            if(updateGUI)
+            {
+                return;
+            }
             bool IPv4IPfound = false;
             bool IPv6IPfound = false;
             bool IPv4GWfound = false;
@@ -303,36 +318,36 @@ namespace DNS_Swapper
             ComboboxItem selectedNic = (ComboboxItem)NIC_select.SelectedItem;
             NetworkInterface nic = (NetworkInterface)selectedNic.Value;
 
-                    foreach (UnicastIPAddressInformation ip in nic.GetIPProperties().UnicastAddresses)
+            foreach (UnicastIPAddressInformation ip in nic.GetIPProperties().UnicastAddresses)
+            {
+                if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    IPv4IPfound = true;
+                    IPv4_Text.Text = ip.Address.ToString();
+                    foreach (GatewayIPAddressInformation gwipv4 in nic.GetIPProperties().GatewayAddresses)
                     {
-                        if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                        if (gwipv4.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                         {
-                            IPv4IPfound = true;
-                            IPv4_Text.Text = ip.Address.ToString();
-                            foreach (GatewayIPAddressInformation gwipv4 in nic.GetIPProperties().GatewayAddresses)
-                            {
-                                if (gwipv4.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                                {
-                                    IPv4GWfound = true;
-                                    IPv4_GW_Text.Text = gwipv4.Address.ToString();
-                                }
-                            }
+                            IPv4GWfound = true;
+                            IPv4_GW_Text.Text = gwipv4.Address.ToString();
                         }
-                        else if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
+                    }
+                }
+                else if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
+                {
+                    IPv6IPfound = true;
+                    IPv6_Text.Text = ip.Address.ToString();
+                    foreach (GatewayIPAddressInformation gwipv6 in nic.GetIPProperties().GatewayAddresses)
+                    {
+                        if (gwipv6.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
                         {
-                            IPv6IPfound = true;
-                            IPv6_Text.Text = ip.Address.ToString();
-                            foreach (GatewayIPAddressInformation gwipv6 in nic.GetIPProperties().GatewayAddresses)
-                            {
-                                if (gwipv6.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
-                                {
-                                    IPv6GWfound = true;
-                                    IPv6_GW_Text.Text = gwipv6.Address.ToString();
-                                }
-                            }
+                            IPv6GWfound = true;
+                            IPv6_GW_Text.Text = gwipv6.Address.ToString();
                         }
-
+                    }
+                }
             }
+            
             if (!IPv4IPfound)
             {
                 IPv4_Text.Text = "No IPv4 IP found";
@@ -349,6 +364,8 @@ namespace DNS_Swapper
             {
                 IPv6_GW_Text.Text = "No IPv6 Gateway found";
             }
+
+            SaveSettings(true);
         }
 
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -360,7 +377,7 @@ namespace DNS_Swapper
 
         private void ValidateIPField(object sender, EventArgs e)
         {
-            var mb = (MaskedTextBox)sender;
+            var mb = (IPAddressControlLib.IPAddressControl)sender;
             string ip = Regex.Replace(mb.Text, @"\s+", "");
 
             if (ip.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries).Length == 4)

@@ -18,10 +18,10 @@
     <ROW Property="MSIFASTINSTALL" MultiBuildValue="DefaultBuild:1"/>
     <ROW Property="Manufacturer" Value="TryAllTheThings"/>
     <ROW Property="MsiLogging" MultiBuildValue="DefaultBuild:vp"/>
-    <ROW Property="ProductCode" Value="1033:{F5131366-F09E-4EBF-8A4F-F15D4D3D4B74} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{7E28E9A7-A37C-4FC7-9339-B5CCC4DD3D66} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="DNS-Swapper"/>
-    <ROW Property="ProductVersion" Value="1.5.7.0" Options="32"/>
+    <ROW Property="ProductVersion" Value="1.5.9.0" Options="32"/>
     <ROW Property="REBOOT" MultiBuildValue="DefaultBuild:ReallySuppress"/>
     <ROW Property="RUNAPPLICATION" Value="1" Type="4"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
