@@ -31,7 +31,7 @@ jobs:
         dotnet restore DNS-Swapper/DNS-Swapper.csproj
         dotnet restore swap/swap.csproj
     - name: Install ILRepack
-      run: dotnet add package ILRepack --version 2.0.18
+      run: dotnet add DNS-Swapper/DNS-Swapper.csproj package ILRepack --version 2.0.18
      
     - name: Build
       run: dotnet build DNS-Swapper.sln --configuration Release
