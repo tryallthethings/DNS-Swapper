@@ -27,7 +27,9 @@ jobs:
         dotnet-version: '6.0.x'
 
     - name: Restore dependencies
-      run: dotnet restore DNS-Swapper.sln
+      run: |
+        dotnet restore DNS-Swapper/DNS-Swapper.csproj
+        dotnet restore swap/swap.csproj
 
     - name: Build
       run: dotnet build DNS-Swapper.sln --configuration Release
