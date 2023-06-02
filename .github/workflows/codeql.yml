@@ -27,12 +27,14 @@ jobs:
       uses: nuget/setup-nuget@v1
       with:
         nuget-version: "latest"
-
+    - name: Restore dependencies
+      run: dotnet restore
+      
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
 
     - name: Build with dotnet
-      run: dotnet build --configuration Release
+      run: dotnet build --configuration Release --ignore-project-extensions .aiproj
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
